@@ -1,8 +1,17 @@
 from app.dto.user_dto import UserDTO
 from app.models.user import User
+from app.validators.user import user_validator_factory
+
+async def __validate(user:User, request:UserDTO):
+    user_validators = user_validator_factory.get_instance()
+    for validator in user_validators:
+        await validator.execute(user, request)
 
 async def create_user(request:UserDTO) -> str:
     user = User().build(name=request.name, email=request.email)
+
+    await __validate(user, request)
+
     await user.insert()
     return user.id
 
