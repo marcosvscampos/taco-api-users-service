@@ -13,8 +13,4 @@ async def register(request: UserDTO):
 
 @router.get("/users/{user_id}", response_model=UserDTO)
 async def get_by_id(user_id: Annotated[str, Path(title = "ID do usuário a ser pesquisado")]):
-    response = await user_service.get_by_id(user_id=user_id)
-    if (response is None):
-        raise HTTPException(status_code=404, detail=f"Usuário de ID {user_id} não existe")
-
-    return response
+    return await user_service.get_by_id(user_id=user_id)
