@@ -11,7 +11,7 @@ async def init_db():
     print(">>> Starting database at Host -> @{0} - Database -> {1}".format(host, database))
 
     client = motor.motor_asyncio.AsyncIOMotorClient(
-        "mongodb+srv://roguesoft:ZmZTgmvMcy6tAHuL@{0}/{1}?retryWrites=true&w=majority".format(host, database)
+        "mongodb+srv://roguesoft:rNNFRAmcBMu2gCSz@{0}/{1}?retryWrites=true&w=majority".format(host, database)
     )
 
     await init_beanie(database=client.get_database(), document_models=[User, ApiKey])

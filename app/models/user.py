@@ -9,7 +9,7 @@ class User(Document):
     email:Optional[str] =  None
 
     class Settings:
-        name = "users"
+        name = "Users"
 
     def build(self, name:str, email:str, id:str=None):
         self.id = id if id is not None else str(uuid.uuid4())
