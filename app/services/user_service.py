@@ -1,7 +1,7 @@
 from app.exceptions.user_not_found_exception import UserNotFoundException
 from app.dto.user_dto import UserDTO
 from app.models.user import User
-from app.validators.user import user_validator_factory
+from app.validators.business.user import user_validator_factory
 
 async def __validate(user:User, request:UserDTO):
     user_validators = user_validator_factory.get_instance()

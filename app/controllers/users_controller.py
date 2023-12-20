@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Path, HTTPException
+from fastapi import APIRouter, Path
 from app.dto.user_dto import UserDTO
 from app.services import user_service
 
