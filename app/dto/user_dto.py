@@ -1,7 +1,7 @@
 from pydantic import BaseModel, field_validator
-from app.exceptions.request_data_validation_exception import RequestDataValidationException
-
-import re
+from app.validators.fields.field_value_validator import FieldValueValidator
+from app.validators.fields.name_validator import NameValidator
+from app.validators.fields.email_validator import EmailValidator
 
 class UserDTO(BaseModel):
 
@@ -11,28 +11,12 @@ class UserDTO(BaseModel):
 
     @field_validator('name')
     def validate_name(cls, val):
-        if (val is None or len(val) == 0):
-            raise RequestDataValidationException('Nome não pode ser vazio')
-
-        if (len(val) > 70 or len(val) < 10):
-            raise RequestDataValidationException('Nome deve ter tamanho entre 10 e 70 caracteres')
-        
-        regex = re.compile(r"^[a-zA-ZÀ-ÿ\s]+$")
-        if (not re.match(regex, val)):
-            raise RequestDataValidationException('Nome só aceita letras')
-
+        value_validator:FieldValueValidator = NameValidator()
+        value_validator.execute(val)
         return val
     
     @field_validator('email')
     def validate_email(cls, val):
-        if (val is None or len(val) == 0):
-            raise RequestDataValidationException('Email não pode ser vazio')
-
-        if (len(val) > 120 or len(val) < 10):
-            raise RequestDataValidationException('Email deve ter tamanho entre 10 e 120 caracteres')
-        
-        regex = re.compile(r'^[\w\.-]+@[\w\.-]+\.\w+$')
-        if (not re.match(regex, val)):
-            raise RequestDataValidationException('Email possui formato inválido')
-        
+        value_validator:FieldValueValidator = EmailValidator()
+        value_validator.execute(val)
         return val
