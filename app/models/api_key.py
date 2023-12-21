@@ -1,26 +1,19 @@
+from app.utils import key_utils
 from beanie import Document
+from typing import Optional
 import uuid
 
 class ApiKey(Document):
 
-    id:str
-    key:str
-    user_id:str
+    id: Optional[str] = None
+    key:Optional[str] = None
+    user_id:Optional[str] = None
 
     class Settings:
-        name = "api_keys"
+        name = "ApiKeys"
 
-    def __init__(self, user_id:str):
-        self.__id = uuid.uuid4()
-        self.__key = uuid.uuid4()
-        self.__user_id = user_id
-        pass
-
-    def get_id(self):
-        return self.__id
-    
-    def get_key(self):
-        return self.__key
-    
-    def get_user_id(self):
-        return self.__user_id
+    def build(self, user_id:str):
+        self.id = str(uuid.uuid4())
+        self.key = key_utils.generate_key()
+        self.user_id = user_id
+        return self
