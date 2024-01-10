@@ -1,4 +1,5 @@
 import pika
+from app.config.environment.amqp_env_config import AMQPEnvConfig
 
 class AMQPProvider:
 
@@ -6,7 +7,8 @@ class AMQPProvider:
     __queue_name:str = None
 
     def __init__(self, exchange:str, queue:str, type:str = 'fanout'):
-        url: str = 'amqps://jmtljlth:H410EL1FjUt3J7TegklYeHR6vK1zWKRY@jackal.rmq.cloudamqp.com/jmtljlth'
+        config = AMQPEnvConfig()
+        url: str = f'amqps://{config.username}:{config.password}@{config.host}/{config.vhost}'
         parameters = pika.URLParameters(url)
         connection = pika.BlockingConnection(parameters)
         self.__channel = connection.channel()

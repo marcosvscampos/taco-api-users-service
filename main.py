@@ -1,5 +1,7 @@
 import uvicorn
 
+from dotenv import load_dotenv
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -11,6 +13,8 @@ app = FastAPI()
 @app.on_event("startup")
 async def startup_event():
     await database.init_db()
+
+load_dotenv()
 
 app.include_router(users_controller.router, prefix="/api")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5000"], 

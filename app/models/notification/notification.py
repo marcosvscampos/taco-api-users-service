@@ -2,7 +2,8 @@ import json
 
 class Notification:
 
-    def __init__(self, type:str, content):
+    def __init__(self, to:str, type:str, content):
+        self.to = to
         self.type = type
         self.content = content
 

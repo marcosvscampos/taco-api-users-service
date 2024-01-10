@@ -1,5 +1,5 @@
 from app.config.amqp import AMQPProvider
-from app.models.notification import Notification
+from app.models.notification.notification import Notification
 
 def send(notification:Notification):
     provider = AMQPProvider(
@@ -7,9 +7,8 @@ def send(notification:Notification):
             queue='queue.taco.api.notification')
     try:
         message = notification.to_json()
-        print(f"{message}")
         provider.publish(message)
     except:
-        print(">>> ERRO durante envio de mensagem ao RabbitMQ")
+        print("[notification_service#send] >>> ERRO durante envio de mensagem ao RabbitMQ")
     finally:
         provider.channel.close()        
