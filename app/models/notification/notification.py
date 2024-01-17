@@ -9,6 +9,7 @@ class Notification:
 
     def to_json(self):
         dict = {
+            'to': self.to,
             'type': self.type,
             'content': vars(self.content)
         }

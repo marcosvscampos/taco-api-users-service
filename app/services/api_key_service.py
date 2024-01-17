@@ -11,6 +11,6 @@ async def create_api_key(user:User):
 
     send(Notification(to=user.email, 
                       type="API_KEY_CREATED", 
-                      content=UserCreatedNotificationContent(name=user.name, email=user.email, key=api_key.key)))
+                      content=UserCreatedNotificationContent(name=user.name, key=api_key.key)))
 
     return api_key.id
